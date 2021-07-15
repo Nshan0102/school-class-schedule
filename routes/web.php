@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SchoolClassController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin'], function () {
+    Route::resource('school-classes', SchoolClassController::class);
+});
 
 require __DIR__.'/auth.php';

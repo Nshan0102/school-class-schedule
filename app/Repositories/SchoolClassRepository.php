@@ -3,19 +3,19 @@
 namespace App\Repositories;
 
 use App\Filters\QueryFilters;
-use App\Filters\User\UserFilters;
-use App\Models\User;
+use App\Filters\User\SchoolClassFilters;
+use App\Models\SchoolClass;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
- * Class UserRepository
+ * Class SchoolClassRepository
  * @mixin Model
  * @package App\Repositories
  */
-class UserRepository extends BaseRepository implements UserRepositoryInterface
+class SchoolClassRepository extends BaseRepository implements UserRepositoryInterface
 {
     /**
      * @var Model
@@ -32,7 +32,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     protected $request;
 
-    public function __construct(Request $request, User $model, UserFilters $filters)
+    public function __construct(Request $request, SchoolClass $model, SchoolClassFilters $filters)
     {
         $this->request = $request;
         $this->model = $model;
