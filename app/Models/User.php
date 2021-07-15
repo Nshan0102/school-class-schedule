@@ -56,6 +56,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin(): bool
+    {
+        return in_array("admin", $this->roles()->pluck("name")->toArray());
+    }
+
+    public function isTeacher(): bool
+    {
+        return in_array("teacher", $this->roles()->pluck("name")->toArray());
+    }
 
     public function schedules()
     {

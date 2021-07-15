@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\OrderDesc;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -21,5 +22,6 @@ class BaseModel extends Model
     protected static function boot()
     {
         parent::boot();
+        static::addGlobalScope(new OrderDesc());
     }
 }

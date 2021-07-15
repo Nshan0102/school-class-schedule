@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\SchoolClass;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseRequest;
+use App\Models\SchoolClass;
 
-class SchoolClassStoreRequest extends FormRequest
+class SchoolClassStoreRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class SchoolClassStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->access("store", SchoolClass::class);
     }
 
     /**

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\SchoolClass;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\SchoolClass;
 
-class SchoolClassUpdateRequest extends SchoolClassStoreRequest
+class SchoolClassDestroyRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +14,6 @@ class SchoolClassUpdateRequest extends SchoolClassStoreRequest
      */
     public function authorize()
     {
-        return $this->access("update", SchoolClass::class);
+        return $this->access("destroy", SchoolClass::class);
     }
 }

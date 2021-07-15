@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class UserPolicy extends BasePolicy
+class SchoolClassPolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view any model.
@@ -13,7 +13,7 @@ class UserPolicy extends BasePolicy
      */
     public function index(User $user): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -34,7 +34,7 @@ class UserPolicy extends BasePolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
