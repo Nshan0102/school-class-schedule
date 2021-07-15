@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Filters\QueryFilters;
-use App\Filters\User\SchoolClassFilters;
-use App\Models\SchoolClass;
-use App\Repositories\Contracts\SchoolClassRepositoryInterface;
+use App\Filters\User\ScheduleFilters;
+use App\Models\Schedule;
+use App\Repositories\Contracts\ScheduleRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
  * @mixin Model
  * @package App\Repositories
  */
-class SchoolClassRepository extends BaseRepository implements SchoolClassRepositoryInterface
+class ScheduleRepository extends BaseRepository implements ScheduleRepositoryInterface
 {
     /**
      * @var Model
@@ -32,7 +32,7 @@ class SchoolClassRepository extends BaseRepository implements SchoolClassReposit
      */
     protected $request;
 
-    public function __construct(Request $request, SchoolClass $model, SchoolClassFilters $filters)
+    public function __construct(Request $request, Schedule $model, ScheduleFilters $filters)
     {
         $this->request = $request;
         $this->model = $model;
