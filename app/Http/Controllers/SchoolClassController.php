@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolClass\SchoolClassStoreRequest;
+use App\Http\Requests\SchoolClass\SchoolClassUpdateRequest;
 use App\Repositories\Contracts\SchoolClassRepositoryInterface;
 use App\Repositories\SchoolClassRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -38,67 +41,79 @@ class SchoolClassController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        //
+        return view(
+            'school-class.create'
+        );
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return Response
+     * @param SchoolClassStoreRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SchoolClassStoreRequest $request)
     {
-        //
+        $schoolClass = $this->schoolClassRepository->create($request->validated());
+        return redirect(route("school-classes.show", $schoolClass->id));
     }
 
     /**
      * Display the specified resource.
-     *
      * @param int $id
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        $schoolClass = $this->schoolClassRepository->getById($id);
+        return view(
+            'school-class.show',
+            [
+                'schoolClass' => $schoolClass,
+                'schedules' => $schoolClass->schedules
+            ]
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param int $id
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        return view(
+            'school-class.edit',
+            [
+                'schoolClass' => $this->schoolClassRepository->getById($id)
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param SchoolClassUpdateRequest $request
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(SchoolClassUpdateRequest $request, int $id)
     {
-        //
+        $this->schoolClassRepository->update($id, $request->validated());
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        $this->schoolClassRepository->destroy($id);
+        return redirect()->back();
     }
 }

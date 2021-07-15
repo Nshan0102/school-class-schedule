@@ -1,3 +1,8 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'bootstrap';
 
+nav[role="navigation"]{
+    width: 100% !important;
+}

@@ -51,7 +51,7 @@ class SchoolClassRepository extends BaseRepository implements UserRepositoryInte
 
     public function update($id, $data)
     {
-        $this->model->update($data);
+        $this->getByIdModel($id)->update($data);
         return $this->model;
     }
 
@@ -68,5 +68,10 @@ class SchoolClassRepository extends BaseRepository implements UserRepositoryInte
     public function newQuery(): Builder
     {
         return $this->model::query();
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->getByIdModel($id)->delete();
     }
 }

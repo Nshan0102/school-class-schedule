@@ -20,7 +20,10 @@ class UserSeeder extends Seeder
         /** @var UserRepository $userRepository */
         $userRepository = app(UserRepositoryInterface::class);
         $admins = $userRepository->newQuery()->limit(5)->get();
-        $role = Role::findByName('admin');
-        $role->users()->attach($admins);
+        $teachers = $userRepository->newQuery()->offset(5)->limit(45)->get();
+        $roleAdmin = Role::findByName('admin');
+        $roleTeacher = Role::findByName('teacher');
+        $roleAdmin->users()->attach($admins);
+        $roleTeacher->users()->attach($teachers);
     }
 }

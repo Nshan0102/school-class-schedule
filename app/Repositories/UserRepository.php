@@ -51,7 +51,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function update($id, $data)
     {
-        $this->model->update($data);
+        $this->getByIdModel($id)->update($data);
         return $this->model;
     }
 
