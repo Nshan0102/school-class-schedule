@@ -37,7 +37,7 @@ class ScheduleController extends Controller
         return view(
             'schedule.index',
             [
-                'schoolClasses' => $this->scheduleRepository->all()
+                'schedules' => $this->scheduleRepository->all()
             ]
         );
     }
@@ -61,7 +61,7 @@ class ScheduleController extends Controller
     public function store(ScheduleStoreRequest $request)
     {
         $schoolClass = $this->scheduleRepository->create($request->validated());
-        return redirect(route("schedule.show", $schoolClass->id));
+        return redirect(route("admin-schedule.show", $schoolClass->id));
     }
 
     /**

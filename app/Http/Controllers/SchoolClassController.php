@@ -61,7 +61,7 @@ class SchoolClassController extends Controller
     public function store(SchoolClassStoreRequest $request)
     {
         $schoolClass = $this->schoolClassRepository->create($request->validated());
-        return redirect(route("school-classes.show", $schoolClass->id));
+        return redirect(route("admin-school-classes.show", $schoolClass->id));
     }
 
     /**

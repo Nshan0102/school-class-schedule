@@ -30,7 +30,7 @@ Route::get(
 )->middleware(['auth'])->name('dashboard');
 
 Route::group(
-    ['middleware' => ['role:admin'], 'prefix' => 'admin'],
+    ['middleware' => ['role:admin']],
     function () {
         Route::resource('admin-school-classes', SchoolClassController::class);
         Route::resource('admin-schedules', ScheduleController::class);
@@ -38,7 +38,7 @@ Route::group(
 );
 
 Route::group(
-    ['middleware' => ['role:teacher'], 'prefix' => 'teacher'],
+    ['middleware' => ['role:teacher']],
     function () {
         Route::resource('teacher-school-classes', SchoolClassController::class);
         Route::resource('teacher-schedules', ScheduleController::class);
