@@ -16,11 +16,20 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('school-classes.index')" :active="request()->routeIs('school-classes.index')">
-                        {{ __('School Classes') }}
-                    </x-nav-link>
-                </div>
+                @if(auth()->user()->isAdmin())
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin-school-classes.index')"
+                                    :active="request()->routeIs('admin-school-classes.index')">
+                            {{ __('School Classes') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin-schedules.index')"
+                                    :active="request()->routeIs('admin-schedules.index')">
+                            {{ __('Schedules') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

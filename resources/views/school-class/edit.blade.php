@@ -5,7 +5,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-center">Edit School Class No: {{ $schoolClass->id }}</h1>
                     <div class="d-flex justify-content-start">
-                        <form method="POST" action="{{ route("school-classes.update", $schoolClass->id) }}">
+                        <form method="POST" action="{{ route("admin-school-classes.update", $schoolClass->id) }}">
                             @csrf
                             @method("PUT")
                             <div class="form-group">

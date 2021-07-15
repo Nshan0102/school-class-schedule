@@ -13,6 +13,6 @@ class ScheduleDestroyRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return $this->access("school_class.destroy", Schedule::class);
+        return $this->access("schedule.destroy", Schedule::class);
     }
 }

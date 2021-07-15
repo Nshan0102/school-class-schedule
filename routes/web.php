@@ -32,8 +32,16 @@ Route::get(
 Route::group(
     ['middleware' => ['role:admin'], 'prefix' => 'admin'],
     function () {
-        Route::resource('school-classes', SchoolClassController::class);
-        Route::resource('schedule', ScheduleController::class);
+        Route::resource('admin-school-classes', SchoolClassController::class);
+        Route::resource('admin-schedules', ScheduleController::class);
+    }
+);
+
+Route::group(
+    ['middleware' => ['role:teacher'], 'prefix' => 'teacher'],
+    function () {
+        Route::resource('teacher-school-classes', SchoolClassController::class);
+        Route::resource('teacher-schedules', ScheduleController::class);
     }
 );
 

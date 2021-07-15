@@ -33,9 +33,9 @@
                                     <td>{{ $schedule->start_time }}</td>
                                     <td>{{ $schedule->end_time }}</td>
                                     <td>
-                                        <a href="{{ route("school-classes.show", $schoolClass->id) }}" class="btn btn-success">View</a>
-                                        <a href="{{ route("school-classes.edit", $schoolClass->id) }}" class="btn btn-info">Edit</a>
-                                        <form method="POST" action="{{ route("school-classes.destroy", $schoolClass->id) }}">
+                                        <a href="{{ route("admin-school-classes.show", $schoolClass->id) }}" class="btn btn-success">View</a>
+                                        <a href="{{ route("admin-school-classes.edit", $schoolClass->id) }}" class="btn btn-info">Edit</a>
+                                        <form method="POST" action="{{ route("admin-school-classes.destroy", $schoolClass->id) }}">
                                             @csrf
                                             @method("DELETE")
                                             <button class="btn btn-danger">Delete</button>

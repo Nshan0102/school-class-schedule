@@ -13,6 +13,6 @@ class ScheduleViewRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return $this->access("school_class.view", Schedule::class);
+        return $this->access("schedule.view", Schedule::class);
     }
 }

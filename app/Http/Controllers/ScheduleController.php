@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SchoolClass\SchoolClassDestroyRequest;
-use App\Http\Requests\SchoolClass\SchoolClassEditRequest;
-use App\Http\Requests\SchoolClass\SchoolClassIndexRequest;
-use App\Http\Requests\SchoolClass\SchoolClassStoreRequest;
-use App\Http\Requests\SchoolClass\SchoolClassUpdateRequest;
-use App\Http\Requests\SchoolClass\SchoolClassViewRequest;
+use App\Http\Requests\Schedule\ScheduleDestroyRequest;
+use App\Http\Requests\Schedule\ScheduleEditRequest;
+use App\Http\Requests\Schedule\ScheduleIndexRequest;
+use App\Http\Requests\Schedule\ScheduleStoreRequest;
+use App\Http\Requests\Schedule\ScheduleUpdateRequest;
+use App\Http\Requests\Schedule\ScheduleViewRequest;
 use App\Repositories\Contracts\ScheduleRepositoryInterface;
-use App\Repositories\Contracts\SchoolClassRepositoryInterface;
-use App\Repositories\SchoolClassRepository;
+use App\Repositories\ScheduleRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,26 +18,26 @@ use Illuminate\Http\RedirectResponse;
 class ScheduleController extends Controller
 {
     /**
-     * @var SchoolClassRepository
+     * @var ScheduleRepository
      */
-    private $schoolClassRepository;
+    private $scheduleRepository;
 
     public function __construct()
     {
-        $this->schoolClassRepository = app(ScheduleRepositoryInterface::class);
+        $this->scheduleRepository = app(ScheduleRepositoryInterface::class);
     }
 
     /**
      * Display a listing of the resource.
-     * @param SchoolClassIndexRequest $request
+     * @param ScheduleIndexRequest $request
      * @return Application|Factory|View
      */
-    public function index(SchoolClassIndexRequest $request)
+    public function index(ScheduleIndexRequest $request)
     {
         return view(
-            'school-class.index',
+            'schedule.index',
             [
-                'schoolClasses' => $this->schoolClassRepository->all()
+                'schoolClasses' => $this->scheduleRepository->all()
             ]
         );
     }
@@ -50,32 +49,32 @@ class ScheduleController extends Controller
     public function create()
     {
         return view(
-            'school-class.create'
+            'schedule.create'
         );
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param SchoolClassStoreRequest $request
+     * @param ScheduleStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(SchoolClassStoreRequest $request)
+    public function store(ScheduleStoreRequest $request)
     {
-        $schoolClass = $this->schoolClassRepository->create($request->validated());
-        return redirect(route("school-classes.show", $schoolClass->id));
+        $schoolClass = $this->scheduleRepository->create($request->validated());
+        return redirect(route("schedule.show", $schoolClass->id));
     }
 
     /**
      * Display the specified resource.
-     * @param SchoolClassViewRequest $request
+     * @param ScheduleViewRequest $request
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show(SchoolClassViewRequest $request, int $id)
+    public function show(ScheduleViewRequest $request, int $id)
     {
-        $schoolClass = $this->schoolClassRepository->getById($id);
+        $schoolClass = $this->scheduleRepository->getById($id);
         return view(
-            'school-class.show',
+            'schedule.show',
             [
                 'schoolClass' => $schoolClass,
                 'schedules' => $schoolClass->schedules
@@ -85,16 +84,16 @@ class ScheduleController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param SchoolClassEditRequest $request
+     * @param ScheduleEditRequest $request
      * @param int $id
      * @return Application|Factory|View
      */
-    public function edit(SchoolClassEditRequest $request, int $id)
+    public function edit(ScheduleEditRequest $request, int $id)
     {
         return view(
-            'school-class.edit',
+            'schedule.edit',
             [
-                'schoolClass' => $this->schoolClassRepository->getById($id)
+                'schoolClass' => $this->scheduleRepository->getById($id)
             ]
         );
     }
@@ -102,25 +101,25 @@ class ScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SchoolClassUpdateRequest $request
+     * @param ScheduleUpdateRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function update(SchoolClassUpdateRequest $request, int $id)
+    public function update(ScheduleUpdateRequest $request, int $id)
     {
-        $this->schoolClassRepository->update($id, $request->validated());
+        $this->scheduleRepository->update($id, $request->validated());
         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param SchoolClassDestroyRequest $request
+     * @param ScheduleDestroyRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function destroy(SchoolClassDestroyRequest $request, int $id)
+    public function destroy(ScheduleDestroyRequest $request, int $id)
     {
-        $this->schoolClassRepository->destroy($id);
+        $this->scheduleRepository->destroy($id);
         return redirect()->back();
     }
 }

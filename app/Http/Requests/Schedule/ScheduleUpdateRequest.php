@@ -12,6 +12,6 @@ class ScheduleUpdateRequest extends ScheduleStoreRequest
      */
     public function authorize(): bool
     {
-        return $this->access("school_class.update", Schedule::class);
+        return $this->access("schedule.update", Schedule::class);
     }
 }

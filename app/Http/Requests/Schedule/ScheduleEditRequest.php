@@ -13,6 +13,6 @@ class ScheduleEditRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return $this->access("school_class.edit", Schedule::class);
+        return $this->access("schedule.edit", Schedule::class);
     }
 }

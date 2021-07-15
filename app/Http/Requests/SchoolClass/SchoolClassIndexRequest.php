@@ -13,6 +13,6 @@ class SchoolClassIndexRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return $this->access("index", SchoolClass::class);
+        return $this->access("school_class.index", SchoolClass::class);
     }
 }
