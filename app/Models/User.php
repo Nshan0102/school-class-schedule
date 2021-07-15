@@ -6,12 +6,23 @@ use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Class User
+ * @package App\Models
+ * @property $name
+ * @property $surname
+ * @property $profession
+ * @property $email
+ * @mixin BaseModel
+ */
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
     use Filterable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
