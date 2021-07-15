@@ -9,7 +9,11 @@ use App\Http\Requests\Schedule\ScheduleStoreRequest;
 use App\Http\Requests\Schedule\ScheduleUpdateRequest;
 use App\Http\Requests\Schedule\ScheduleViewRequest;
 use App\Repositories\Contracts\ScheduleRepositoryInterface;
+use App\Repositories\Contracts\SchoolClassRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\ScheduleRepository;
+use App\Repositories\SchoolClassRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,9 +26,21 @@ class ScheduleController extends Controller
      */
     private $scheduleRepository;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var SchoolClassRepository
+     */
+    private $schoolClassRepository;
+
     public function __construct()
     {
         $this->scheduleRepository = app(ScheduleRepositoryInterface::class);
+        $this->userRepository = app(UserRepositoryInterface::class);
+        $this->schoolClassRepository = app(SchoolClassRepositoryInterface::class);
     }
 
     /**
@@ -48,8 +64,14 @@ class ScheduleController extends Controller
      */
     public function create()
     {
+        $teachers = $this->userRepository->getTeachers();
+        $schoolClasses = $this->schoolClassRepository->all(true);
         return view(
-            'schedule.create'
+            'schedule.create',
+            [
+                'teachers' => $teachers,
+                'schoolClasses' => $schoolClasses,
+            ]
         );
     }
 
@@ -61,7 +83,7 @@ class ScheduleController extends Controller
     public function store(ScheduleStoreRequest $request)
     {
         $schoolClass = $this->scheduleRepository->create($request->validated());
-        return redirect(route("admin-schedule.show", $schoolClass->id));
+        return redirect(route("admin-schedules.show", $schoolClass->id));
     }
 
     /**
@@ -72,12 +94,11 @@ class ScheduleController extends Controller
      */
     public function show(ScheduleViewRequest $request, int $id)
     {
-        $schoolClass = $this->scheduleRepository->getById($id);
+        $schedule = $this->scheduleRepository->getById($id);
         return view(
             'schedule.show',
             [
-                'schoolClass' => $schoolClass,
-                'schedules' => $schoolClass->schedules
+                'schedule' => $schedule,
             ]
         );
     }

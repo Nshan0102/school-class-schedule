@@ -8,9 +8,45 @@
                         <form method="POST" action="{{ route("admin-schedules.store") }}">
                             @csrf
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label>
-                                <input name="name" type="text" class="form-control" placeholder="Enter class name" value="{{ old("name") }}">
-                                @error("name")
+                                <label for="exampleInputEmail1">Teacher</label>
+                                <select name="user_id">
+                                    @foreach($teachers as $teacher)
+                                        <option value="{{$teacher->id}}">{{$teacher->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error("user_id")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">School class</label>
+                                <select name="school_class_id">
+                                    @foreach($schoolClasses as $schoolClass)
+                                        <option value="{{$schoolClass->id}}">{{$schoolClass->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error("school_class_id")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input name="day" type="date">
+                                @error("day")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <input type="time" name="start_time">
+                                @error("start_time")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>End Time</label>
+                                <input type="time" name="end_time">
+                                @error("end_time")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

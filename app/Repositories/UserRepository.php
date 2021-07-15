@@ -39,9 +39,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->filter = $filters;
     }
 
-    public function all()
+    public function all($withoutPagination = false)
     {
-        return $this->mainQuery()->filter($this->filter)->paginate($this->per_page());
+        $query = $this->mainQuery()->filter($this->filter);
+        return $withoutPagination ? $query->get() : $query->paginate($this->per_page());
     }
 
     public function create($data)
@@ -68,5 +69,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function newQuery(): Builder
     {
         return $this->model::query();
+    }
+
+    public function getTeachers()
+    {
+        return $this->newQuery()->where(function ($builder){
+            $builder->whereHas("roles", function ($query){
+                $query->where("name", "teacher");
+            });
+        })->get();
     }
 }

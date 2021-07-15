@@ -18,13 +18,10 @@ class BaseRepository
 {
     public const PER_PAGE = 10;
 
-    public function all()
+    public function all($withoutPagination = false)
     {
-        $query = $this->mainQuery();
-        if ($this->request->has('all')) {
-            return $query->filter($this->filter)->get();
-        }
-        return $query->filter($this->filter)->paginate($this->per_page());
+        $query = $this->mainQuery()->filter($this->filter);
+        return $withoutPagination ? $query->get() : $query->paginate($this->per_page());
     }
 
     protected function mainQuery(): Builder

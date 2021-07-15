@@ -9,8 +9,8 @@ class Schedule extends BaseModel
     use HasFactory;
 
     protected $fillable = [
-        "teacher_id",
-        "class_id",
+        "user_id",
+        "school_class_id",
         "day",
         "start_time",
         "end_time",
@@ -18,11 +18,11 @@ class Schedule extends BaseModel
 
     public function teacher()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, "id", "user_id");
     }
 
     public function schoolClass()
     {
-        return $this->hasOne(SchoolClass::class);
+        return $this->hasOne(SchoolClass::class, "id", "school_class_id");
     }
 }
