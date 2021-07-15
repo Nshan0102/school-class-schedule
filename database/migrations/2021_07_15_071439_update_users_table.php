@@ -16,7 +16,6 @@ class UpdateUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string("surname")->nullable()->after("name");
             $table->string("profession")->nullable()->after("surname");
-            $table->unsignedBigInteger("role_id")->nullable()->after("email");
         });
     }
 
@@ -30,7 +29,6 @@ class UpdateUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn("surname");
             $table->dropColumn("profession");
-            $table->dropColumn("role_id");
         });
     }
 }
