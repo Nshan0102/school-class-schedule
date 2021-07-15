@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\SchoolClass;
 use App\Models\User;
 
 class SchoolClassPolicy extends BasePolicy
@@ -29,21 +30,32 @@ class SchoolClassPolicy extends BasePolicy
     /**
      * Determine whether the user can view the single model.
      * @param User $user
-     * @param User $model
+     * @param SchoolClass $model
      * @return bool
      */
-    public function view(User $user, User $model): bool
+    public function view(User $user, SchoolClass $model): bool
     {
         return true;
     }
 
     /**
-     * Determine whether the user can edit the model.
+     * Determine whether the user can update the model.
      * @param User $user
-     * @param User $model
+     * @param SchoolClass $model
      * @return bool
      */
-    public function update(User $user, User $model): bool
+    public function update(User $user, SchoolClass $model): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the user can edit the model.
+     * @param User $user
+     * @param SchoolClass $model
+     * @return bool
+     */
+    public function edit(User $user, SchoolClass $model): bool
     {
         return $user->isAdmin();
     }
@@ -51,10 +63,10 @@ class SchoolClassPolicy extends BasePolicy
     /**
      * Determine whether the user can delete the model.
      * @param User $user
-     * @param User $model
+     * @param SchoolClass $model
      * @return bool
      */
-    public function destroy(User $user, User $model): bool
+    public function destroy(User $user, SchoolClass $model): bool
     {
         return $user->isAdmin();
     }

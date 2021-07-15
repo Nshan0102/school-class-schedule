@@ -38,12 +38,23 @@ class UserPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the model.
+     * Determine whether the user can update the model.
      * @param User $user
      * @param User $model
      * @return bool
      */
     public function update(User $user, User $model): bool
+    {
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the user can edit the model.
+     * @param User $user
+     * @param User $model
+     * @return bool
+     */
+    public function edit(User $user, User $model): bool
     {
         return $user->isAdmin();
     }

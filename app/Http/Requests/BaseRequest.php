@@ -30,4 +30,31 @@ class BaseRequest extends FormRequest
         }
         return [debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3)[2]['function'], $ability];
     }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param $paramName
+     * @return mixed
+     */
+    public function getRouteParam($paramName)
+    {
+        return $this->route()->parameters[$paramName] ?? null;
+    }
 }

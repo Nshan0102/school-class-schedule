@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolClass\SchoolClassDestroyRequest;
+use App\Http\Requests\SchoolClass\SchoolClassEditRequest;
+use App\Http\Requests\SchoolClass\SchoolClassIndexRequest;
 use App\Http\Requests\SchoolClass\SchoolClassStoreRequest;
 use App\Http\Requests\SchoolClass\SchoolClassUpdateRequest;
+use App\Http\Requests\SchoolClass\SchoolClassViewRequest;
 use App\Repositories\Contracts\SchoolClassRepositoryInterface;
 use App\Repositories\SchoolClassRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class SchoolClassController extends Controller
 {
@@ -27,9 +29,10 @@ class SchoolClassController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param SchoolClassIndexRequest $request
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(SchoolClassIndexRequest $request)
     {
         return view(
             'school-class.index',
@@ -63,10 +66,11 @@ class SchoolClassController extends Controller
 
     /**
      * Display the specified resource.
+     * @param SchoolClassViewRequest $request
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show(int $id)
+    public function show(SchoolClassViewRequest $request, int $id)
     {
         $schoolClass = $this->schoolClassRepository->getById($id);
         return view(
@@ -80,10 +84,11 @@ class SchoolClassController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param SchoolClassEditRequest $request
      * @param int $id
      * @return Application|Factory|View
      */
-    public function edit(int $id)
+    public function edit(SchoolClassEditRequest $request, int $id)
     {
         return view(
             'school-class.edit',
@@ -108,10 +113,11 @@ class SchoolClassController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param SchoolClassDestroyRequest $request
      * @param int $id
      * @return RedirectResponse
      */
-    public function destroy(int $id)
+    public function destroy(SchoolClassDestroyRequest $request, int $id)
     {
         $this->schoolClassRepository->destroy($id);
         return redirect()->back();
